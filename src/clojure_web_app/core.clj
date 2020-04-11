@@ -1,12 +1,13 @@
 (ns clojure-web-app.core
   (:require [ring.adapter.jetty :refer [run-jetty]]
-            [clojure.pprint :refer [pprint]]))
+            [clojure.pprint     :refer [pprint]]
+            [compojure.core     :refer [routes GET]]
+            [compojure.route    :refer [not-found]]))
 
-(defn handler [request]
-  (clojure.pprint/pprint request)
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body "Hello world"})
+(def my-routes-handler
+  (routes
+    (GET  "/info"  [] "<h1>Information</h1> This is information about the application")
+    (not-found "<h1>Page not found</h1>")))
 
 (defn -main []
-  (run-jetty handler {:port 3000}))
+  (run-jetty my-routes-handler {:port 3000}))
