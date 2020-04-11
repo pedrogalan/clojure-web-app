@@ -2,6 +2,8 @@
 
 A simple web app in Clojure created just to learn.
 
+* First steps are based on a [blog post](http://matthewlisp.com/set-up-clojure-api) by Matthew Lisp.
+
 ## Usage
 
 TO BE COMPLETED
