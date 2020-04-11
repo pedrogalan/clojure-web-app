@@ -16,11 +16,15 @@
 (defn get-all-customers []
   (sql/query db-connection ["select * from books"]))
 
+(defn get-customer-by-id [id]
+  (sql/query db-connection ["select * from books where id = ?::uuid" id]))
+
 (def my-routes-handler
   (routes
-    (GET  "/info"  []      (response {:version "0.1" :created "April 11th 2020"}))
-    (GET  "/books" []      (response (get-all-customers)))
-    (POST "/debug" request (response (with-out-str (pprint request))))
+    (GET  "/info"      []   (response {:version "0.1" :created "April 11th 2020"}))
+    (GET  "/books"     []   (response (get-all-customers)))
+    (GET  "/books/:id" [id] (response (get-customer-by-id id)))
+    (POST "/debug" request  (response (with-out-str (pprint request))))
     (not-found "<h1>Page not found</h1>")))
 
 (def app
